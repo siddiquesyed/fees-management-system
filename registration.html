@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration - Fees Management System</title>
+  <!-- Link to Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #007bff;
+      padding: 10px 20px;
+      color: white;
+      position: relative;
+    }
+    .navbar h1 {
+      margin: 0;
+    }
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    .nav-links li {
+      display: inline;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .nav-links i {
+      margin-right: 5px;
+    }
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 3px 0;
+    }
+    .nav-links.active {
+      display: flex;
+    }
+   .form-group #err{
+     color:red;
+     padding:5px;
+     font-size:15px;
+   }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #007bff;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: flex;
+        margin-left: 120px;
+      }
+      .navbar h1{
+        font-size: x-large;
+      }
+    }
+
+    /* Form Container */
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      padding-top: 10px; 
+      border-radius: 10px;
+      background-color: #f0f3f8;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2{
+        text-align: center;
+        padding-bottom: 20px;
+    }
+   
+    
+    /* Form Inputs */
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: calc(100% - 22px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    select {
+      width: calc(100% - 22px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      
+    }
+    
+    select::after {
+      content: '\25BC'; /* Unicode character for down arrow */
+      position: absolute;
+      top: calc(50% - 7px);
+      right: 10px;
+      font-size: 14px;
+      pointer-events: none;
+    }
+    /* Submit Button */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+ </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Student Registration Form</h1>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="aboutus.html"><i class="fa fa-info-circle"></i> About Us</a></li>
+        <li><a href="https://svcn.ac.in/"><i class="fa fa-book"></i> Academics</a></li>
+        <li><a href="https://svcn.ac.in/"><i class="fa fa-graduation-cap"></i> Admissions</a></li>
+        <li><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  
+  <div class="container">
+  <h2>Registration Form</h2>
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="studentName">Student Name</label>
+        <input type="text" id="studentName" name="studentName" required pattern="[A-Za-z\s]+" title="Only alphabets are allowed">
+      </div>
+      <div class="form-group">
+        <label for="rollNo">Roll No.</label>
+        <input type="text" id="rollNo" name="rollNo" required pattern="[A-Za-z0-9]{10}$" title="Only alphanumeric characters are allowed">
+        <div id="err"></div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="mobileNumber">Mobile Number</label>
+        <input type="text" id="mobileNumber" name="mobileNumber" required pattern="[0-9]{10}$" title="Only numerics are allowed">
+      </div>
+      <div class="form-group">
+        <label for="studentQuota">Student Quota</label>
+        <select id="studentQuota" name="studentQuota" required>
+          <option value="" disabled selected hidden>Select Student Quota</option>
+          <option value="MQ">MQ</option>
+          <option value="CQ">CQ</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="tuitionFees">Tuition Fees</label>
+        <input type="text" id="tuitionFees" name="tuitionFees">
+      </div>
+      <div class="form-group">
+        <label for="universityFees">University Fees</label>
+        <input type="text" id="universityFees" name="universityFees">
+      </div>
+      <div class="form-group">
+        <label for="hostelFees">Hostel Fees</label>
+        <input type="text" id="hostelFees" name="hostelFees">
+      </div>
+      <div class="form-group">
+        <label for="transportFees">Transport Fees</label>
+        <input type="text" id="transportFees" name="transportFees">
+      </div>
+      <button type="submit" class="btn">Register</button>
+    </form>
+    <p id="registrationMessage" style="display: none; color: green; font-weight: bold;">Registration Successful!</p>
+  </div>
+
+<script>
+  // Toggle Navbar Menu on Mobile
+  function toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    navLinks.classList.toggle('active');
+  }
+
+  // Retrieve existing users from localStorage or initialize empty array
+  const users = JSON.parse(localStorage.getItem('users')) || [];
+
+  document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Capture input data
+    const studentName = document.getElementById('studentName').value;
+    const rollNo = document.getElementById('rollNo') ? document.getElementById('rollNo').value : ''; // Ensure rollNo is captured
+    const password = document.getElementById('password').value;
+    const mobileNumber = document.getElementById('mobileNumber').value;
+    const studentQuota = document.getElementById('studentQuota').value;
+    const tuitionFees = document.getElementById('tuitionFees').value;
+    const universityFees = document.getElementById('universityFees').value;
+    const hostelFees = document.getElementById('hostelFees').value;
+    const transportFees = document.getElementById('transportFees').value;
+
+    // Check if user already exists
+    const userExists = users.some(user => user.rollNo === rollNo);
+
+    if (userExists) {
+      document.getElementById('err').innerText="Rollno already exist"
+      alert("Roll No. is already existed");
+       return; // Stop the registration process
+    }
+
+    // Create registration data
+    const registrationData = {
+      studentName: studentName,
+      rollNo: rollNo,
+      password: password,
+      mobileNumber: mobileNumber,
+      studentQuota: studentQuota,
+      tuitionFees: tuitionFees,
+      universityFees: universityFees,
+      hostelFees: hostelFees,
+      transportFees: transportFees
+    };
+
+    // Add the new registration data to the users array
+    users.push(registrationData);
+
+    // Store the updated users array back to localStorage
+    localStorage.setItem('users', JSON.stringify(users));
+
+    // Show registration success message
+    document.getElementById('registrationMessage').style.display = 'block';
+
+    // Redirect to login.html
+    setTimeout(() => {
+      window.location.href = 'login.html';
+    }, 1000);
+  });
+</script>
+</body>
+</html>

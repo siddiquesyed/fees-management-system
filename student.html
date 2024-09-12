@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Details - Fees Management System</title>
+  <!-- Link to Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #007bff;
+      padding: 10px 20px;
+      color: white;
+      position: relative;
+    }
+    .navbar h1 {
+      margin: 0;
+    }
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    .nav-links li {
+      display: inline;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .nav-links i {
+      margin-right: 5px;
+    }
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 3px 0;
+    }
+    .nav-links.active {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #007bff;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: flex;
+        margin-left: 130px;
+      }
+    }
+
+    /* Container Styles */
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #f0f3f8;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    .student-info {
+      margin-top: 20px;
+    }
+    .info-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+    }
+    .value {
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Student Fee Details</h1>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="aboutus.html"><i class="fa fa-info-circle"></i> About Us</a></li>
+        <li><a href="https://svcn.ac.in/"><i class="fa fa-book"></i> Academics</a></li>
+        <li><a href="https://svcn.ac.in/"><i class="fa fa-graduation-cap"></i> Admissions</a></li>
+        <li><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container">
+    <h2>Student Fee Details</h2>
+    <div class="student-info">
+      <div class="info-group">
+        <label>Student Name:</label>
+        <div id="studentName" class="value"></div>
+      </div>
+      <div class="info-group">
+        <label>Roll No.:</label>
+        <div id="rollNo" class="value"></div>
+      </div>
+      <div class="info-group">
+        <label>Mobile Number:</label>
+        <div id="mobileNumber" class="value"></div>
+      </div>
+      <div class="info-group">
+        <label>Student Quota:</label>
+        <div id="studentQuota" class="value"></div>
+      </div>
+      <div class="info-group">
+        <label>Tuition Fees:</label>
+        <div id="tuitionFees" class="value"></div>
+      </div>
+      <div class="info-group">
+        <label>University Fees:</label>
+        <div id="universityFees" class="value"></div>
+      </div>
+      <div class="info-group">
+        <label>Hostel Fees:</label>
+        <div id="hostelFees" class="value"></div>
+      </div>
+      <div class="info-group">
+        <label>Transport Fees:</label>
+        <div id="transportFees" class="value"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Toggle Navbar Menu on Mobile
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      navLinks.classList.toggle('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Retrieve the logged-in user's roll no and password from localStorage
+      const loggedInRollNo = localStorage.getItem('loggedInRollNo');
+      const loggedInPassword = localStorage.getItem('loggedInPassword');
+
+      if (loggedInRollNo && loggedInPassword) {
+        // Retrieve the users data from localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+
+        // Find the logged-in user's data
+        const user = users.find(user => user.rollNo === loggedInRollNo && user.password === loggedInPassword);
+
+        if (user) {
+          // Display user information on the page
+          document.getElementById('studentName').textContent = user.studentName;
+          document.getElementById('rollNo').textContent = user.rollNo;
+          document.getElementById('mobileNumber').textContent = user.mobileNumber;
+          document.getElementById('studentQuota').textContent = user.studentQuota;
+          document.getElementById('tuitionFees').textContent = user.tuitionFees;
+          document.getElementById('universityFees').textContent = user.universityFees;
+          document.getElementById('hostelFees').textContent = user.hostelFees;
+          document.getElementById('transportFees').textContent = user.transportFees;
+        } else {
+          // If no user is found, redirect to login.html
+          window.location.href = 'login.html';
+        }
+      } else {
+        // If no logged-in user data is found, redirect to login.html
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+</body>
+</html>

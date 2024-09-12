@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In</title>
+  <!-- Link to Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #007bff;
+      padding: 10px 20px;
+      color: white;
+      position: relative;
+    }
+    .navbar h1 {
+      margin: 0;
+    }
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    .nav-links li {
+      display: inline;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .nav-links i {
+      margin-right: 5px;
+    }
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 3px 0;
+    }
+    .nav-links.active {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #007bff;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: flex;
+        margin-left: 240px;
+      }
+    }
+
+    /* Form Container */
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #f0f3f8;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    /* Form Inputs */
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    /* Submit Button */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    /* Error Message */
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Mentor Login</h1>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="aboutus.html"><i class="fa fa-info-circle"></i> About Us</a></li>
+        <li><a href="https://svcn.ac.in/"><i class="fa fa-book"></i> Academics</a></li>
+        <li><a href="https://svcn.ac.in/"><i class="fa fa-graduation-cap"></i> Admissions</a></li>
+        <li><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container">
+    <h2>Sign In</h2>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit" class="btn">Login</button>
+      <button type="button" id="changePasswordBtn" class="btn">Change Password</button>
+      <p id="errorMessage" class="error"></p>
+    </form>
+  </div>
+
+  <script>
+    // Toggle Navbar Menu on Mobile
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      navLinks.classList.toggle('active');
+    }
+
+    // Function to change the password
+    function changePassword() {
+      const newPassword = prompt('Enter new password:');
+      if (newPassword) {
+        localStorage.setItem('password', newPassword); // Save the new password
+        alert('Password changed successfully!');
+      }
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      // Get input values
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      // Check if credentials are valid
+      if (username === 'mentor@svcn' && password === localStorage.getItem('password')) {
+        // Redirect to mentor.html
+        window.location.href = 'mentor.html';
+      } else {
+        // Show error message
+        document.getElementById('errorMessage').textContent = 'Invalid username or password';
+      }
+    });
+
+    document.getElementById('changePasswordBtn').addEventListener('click', function() {
+      changePassword();
+    });
+  </script>
+</body>
+</html>
